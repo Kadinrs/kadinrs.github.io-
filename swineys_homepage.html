@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Swiney's Beach Bonfires</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Quicksand', sans-serif;
+      background: linear-gradient(to bottom, #fff3e0, #ffe0b2);
+      color: #333;
+      text-align: center;
+    }
+    header {
+      padding: 2rem 1rem;
+      background-color: #ff7043;
+      color: white;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2.8rem;
+    }
+    .logo {
+      width: 150px;
+      height: auto;
+      margin: 1rem auto;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+    .intro {
+      padding: 2rem;
+      max-width: 800px;
+      margin: 0 auto;
+      font-size: 1.2rem;
+      line-height: 1.6;
+    }
+    .cta-button {
+      display: inline-block;
+      padding: 1rem 2rem;
+      margin: 2rem 0;
+      background-color: #ff7043;
+      color: white;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      transition: background-color 0.3s ease;
+    }
+    .cta-button:hover {
+      background-color: #f4511e;
+    }
+    form {
+      background: white;
+      max-width: 600px;
+      margin: 2rem auto;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      text-align: left;
+    }
+    form h2 {
+      text-align: center;
+      color: #ff7043;
+    }
+    input, select, textarea {
+      outline: none;
+      transition: border 0.2s ease;
+    }
+    input:required:focus, select:required:focus, textarea:required:focus {
+      border: 2px solid #ff7043;
+    }
+      width: 100%;
+      padding: 0.8rem;
+      margin: 0.75rem 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+      box-sizing: border-box;
+    }
+    button {
+      background-color: #ff7043;
+      color: white;
+      padding: 1rem;
+      border: none;
+      border-radius: 12px;
+      font-size: 1rem;
+      cursor: pointer;
+      width: 100%;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #f4511e;
+    }
+    .thank-you {
+      display: none;
+      padding: 4rem;
+      font-size: 1.5rem;
+      color: #2e7d32;
+      background: white;
+      max-width: 600px;
+      margin: 2rem auto;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    .thank-you svg {
+      width: 60px;
+      height: 60px;
+      margin-bottom: 1rem;
+    }
+  </style>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const form = document.getElementById("booking-form");
+      const packageSelect = form.querySelector("select[name='package']");
+      const dateInput = document.getElementById("date");
+      const today = new Date().toISOString().split("T")[0];
+      dateInput.setAttribute("min", today);
+
+      const packageLinks = {
+        standard: "https://square.link/u/OGJpoU6x",
+        premium: "https://square.link/u/B05tzrLW"
+      };
+
+      form.addEventListener("submit", function(e) {
+        e.preventDefault();
+
+        const selectedPackage = packageSelect.value;
+        const paymentLink = packageLinks[selectedPackage];
+
+        const formData = new FormData(form);
+        fetch(form.action, {
+          method: "POST",
+          body: formData,
+          headers: {
+            Accept: "application/json"
+          }
+        }).then(response => {
+          if (response.ok && paymentLink) {
+            window.location.href = paymentLink;
+          } else {
+            alert("There was a problem submitting your form or no payment link set. Please try again.");
+          }
+        }).catch(() => {
+          alert("There was a problem submitting your form. Please try again.");
+        });
+      });
+    });
+    const navLinks = document.querySelectorAll('nav a');
+  navLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+      const targetId = this.getAttribute('href').substring(1);
+      const target = document.getElementById(targetId);
+      if (target) {
+        e.preventDefault();
+        const yOffset = -100; // offset height for sticky nav
+        const y = target.getBoundingClientRect().top + window.pageYOffset + yOffset;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      }
+    });
+  });
+</script>
+</head>
+<body>
+  <nav style="background-color: #ff7043; padding: 1rem; text-align: center;">
+    <a href="#packages" style="margin: 0 1rem; color: white; text-decoration: none; font-weight: bold;">Packages</a>
+    <a href="#faq" style="margin: 0 1rem; color: white; text-decoration: none; font-weight: bold;">FAQ</a>
+    <a href="#book" style="margin: 0 1rem; color: white; text-decoration: none; font-weight: bold;">Book Now</a>
+  </nav>
+  <header>
+    <h1>Swiney's Beach Bonfires</h1>
+    <img class="logo" style="max-width: 20vw;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARcAAAEXCAYAAABxLtS7AAAACXBIWXMAAAsTAAALEwEAmpwYAAAKGUlEQVR4nO3dz4tcxR3A8Q9ZAFZIgoaKaqJiH5AhQciJKGpC9gR/4AWQFYZaxZGYIr5BWkBGWZxnpZTc7e7vZffuPuI93V3L/n2Td3bmnPuzMzKScsDwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAvAvLLeelAMWyoZLCz7qYFHL5jDLvucQKty8dxldZXZUVIS6YyByEX7MGcNM9JGbW6f2G9c2iBdZ8XmjsGn6jb68kFaR7oQtmN8WZT1y1QuljL9M2g+yH0PRx6JZZjvok2Wse2vRNVn1u1N+kpHL+VXZzvhcV1ldnHRZXZS0Y+DeAPnLb+zWhA+9Q3OlU9v1RbEbWD7SfEm3nZpG/7kevdhr5fN0zaWLRr+F26dN6x1UXhJt/WTntt5UfSpveivBcyJXNq7t7oS8zj6F4GeHLZmpWgtaBzqr9ULRfb8z7ZqQvOyo/yrc90eVlpylvHGHWL7Uepux9rkQ3RJ9tuhtvy7CzLxZPqA+X1jS8ycyk8v8kHb8P4O9pH+FRhvzdr3v3LZy5mN4e8jdtPpEdtzeWR+J2G3Zk7arwO8VbdlcfcpN6U9v0Vb97XYyx30L7MKeO3ZP7HkT9F2mn9V2r6GvHtR62mtu8Gta7vqW7e5tvpbZL2WHtv8Hf0lu1mtqvPvmO7t2Ltu/3pvYJY+crvyWXt5Yu6U9vbLzZ1qzy+r7WzWnFtob+ZLS7f1lY0POzW7Z7b9L2UrW6D4rrwM6oPa1Z9Hl+a0e2v1zazS8qeB75Wu1mN5bwXf6z39wY0Ps6itPLl2Ht35bftVvD7daO8rZ0+yd3vZW1+yB7eZkfOpTz1ZHT+Vfqzt9d7HZ6u+1Lrf0bxPZ+nUL5PVLe3hS92NfeT7uZLvnf2W+1vDLuR3duetPLN1YdmKPRdR7b1JPlbfpq6aZLPub7slbuxlHNuU7b+UzbtV3NfUbss7Wb8b8km2dt8i7X81qZcG8e3C0WTM5sfQeX5XU7fX9Z7PbaO8t3Yboq+yG7eqX+ltuVXnqP9bK1p3PH3YJYu89gR7Y6W1gtrB6WT6zz72+Rz2M+8GeGuP3+wfn1ldnPRZXZS0fP0OAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADgH/gHHl0U1oDbyTcAAAAASUVORK5CYII=" alt="Swiney's Logo">
+  </header>
+
+  <section class="intro">
+    <p>
+      Swiney's Beach Bonfires is a family-owned business run by a local father-and-son duo. We love hosting beach bonfires and wanted to share this unforgettable experience with others. Our goal is to make your evening effortless and memorable — just show up and enjoy.
+    </p>
+    <p>
+      We handle everything for you, including a cozy bonfire setup and even a portable projector for a unique movie night under the stars.
+    </p>
+  </section>
+
+  <section id="packages" class="intro"  style="text-align: left; max-width: 900px; margin: 2rem auto; background-color: #fbe9e7; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);">
+    <h2 style="color: #ff7043;">📍 Where We Serve</h2>
+    <p>
+      We currently serve all <strong>Gulf County beaches</strong>, including Port St. Joe Beach and Cape San Blas. (Mexico Beach coming soon!)
+    </p>
+  </section>
+
+  <section class="intro" style="text-align: left; max-width: 600px; margin: 2rem auto; background-color: #fbe9e7; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);">
+    <h2 style="color: #ff7043;">Standard Package – $200</h2>
+    <p>
+      Our most popular setup for a perfect evening on the beach. Just show up — we’ll handle the rest.
+    </p>
+    <ul>
+      <li>Full bonfire setup and teardown</li>
+      <li>6 comfortable beach chairs</li>
+      <li>Cooler with ice</li>
+      <li>S’mores kit (graham crackers, chocolate, marshmallows)</li>
+      <li>2 reusable metal skewers</li>
+      <li>Lighter fluid & a reliable flame-up</li>
+      <li>Scenic beach sunset</li>
+    </ul>
+    
+
+    <h2 style="color: #ff7043; margin-top: 2rem;">Premium Package – $350</h2>
+    <p>
+      Take your beach night to the next level with your own outdoor movie theater under the stars.
+    </p>
+    <ul>
+      <li>Full bonfire setup and teardown</li>
+      <li>6 comfortable beach chairs</li>
+      <li>Cooler with ice</li>
+      <li>S’mores kit (graham crackers, chocolate, marshmallows)</li>
+      <li>2 reusable metal skewers</li>
+      <li>Lighter fluid & a reliable flame-up</li>
+      <li>Large movie screen + portable projector</li>
+<hr style="margin: 1rem 0; border: none; border-top: 2px solid #ff7043;">
+<p style="margin: 0; padding-left: 0.25rem; text-align: left;">No stress. No cleanup. Just good times under the stars.</p>
+  </section>
+
+  <form action="https://formspree.io/f/xrbpaldl" method="POST" style="scroll-margin-top: 100px;" id="book">
+    <h2>Book Your Bonfire</h2>
+    <input type="text" name="name" placeholder="Your Name" required>
+    <input type="email" name="email" placeholder="Your Email" required>
+    <input type="tel" name="phone" placeholder="Phone Number (Optional)">
+    <label for="date" style="font-weight: 600; margin-top: 1rem; display: block;">Select Your Bonfire Date:</label>
+    <input type="date" name="date" id="date" required>
+    <select name="package" required>
+      <option value="">Select a Package</option>
+      <option value="standard">Standard</option>
+      <option value="premium">Premium</option>
+    </select>
+    <textarea name="message" rows="4" placeholder="Any special requests or questions? (If Premium, feel free to include a movie title here or we'll contact you!)"></textarea>
+    <button type="submit">Submit & Pay</button>
+  </form>
+
+  <section style="max-width: 600px; margin: 2rem auto; text-align: center;">
+    <img src="https://developer.squareup.com/docs/images/checkout-logo.svg" alt="Secure Checkout with Square" style="height: 40px; margin-bottom: 1rem;">
+    <p style="color: #555; font-size: 0.9rem;">We use Square for secure, encrypted payments. Your information is safe with us.</p>
+  </section>
+
+  <section class="intro" style="text-align: left; max-width: 600px; margin: 2rem auto; background-color: #fbe9e7; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);">
+    <h2 style="color: #ff7043;">What People Are Saying</h2>
+    <blockquote style="font-style: italic; border-left: 4px solid #ff7043; padding-left: 1rem; color: #444;">
+      “Thank you Kadin! We had a great night!”
+    </blockquote>
+    <p style="margin-top: 0.5rem; color: #666;">— Happy Guest</p>
+  </section>
+
+  <div class="thank-you">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+    </svg>
+    <strong>Thank you for your booking!</strong><br />
+    We’ve received your request and will get back to you shortly.
+  </div>
+<footer style="background-color: #fbe9e7; padding: 1.5rem; font-size: 0.95rem; color: #5d4037; text-align: left; max-width: 600px; margin: 2rem auto; border-radius: 10px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);">
+  <strong>🌬️ Wind & Weather Policy:</strong><br>
+  Weather happens — we get it. If strong winds or bad weather affect your booking (especially the movie projector), we’ll work with you to reschedule or offer a partial refund depending on your situation. We know many of our guests are here on vacation, so we always aim to be flexible and fair.
+<div style="margin-top: 2rem;">
+    <strong>📩 Contact Us:</strong><br>
+    Have questions, special requests, or want to chat before booking? Email us at <a href="mailto:swineysbeachbonfires@gmail.com" style="color: #d84315; text-decoration: underline;">swineysbeachbonfires@gmail.com</a><br>
+    Or call/text: <a href="tel:8503230478" style="color: #d84315; text-decoration: underline;">850-323-0478</a>
+  </div>
+</footer>
+
+<section id="faq" class="intro" style="text-align: left; max-width: 900px; margin: 2rem auto; background-color: #fbe9e7; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);">
+  <h2 style="color: #ff7043;">❓ Frequently Asked Questions</h2>
+  <p><strong>How long does the bonfire last?</strong><br>It depends on the package — the Standard includes 2 hours of firewood, and the Premium gives you 2.5 hours of cozy flames.</p>
+  <p><strong>What time should we arrive?</strong><br>We plan the setup a little before sunset so you can enjoy the sky’s transformation. Most bookings begin around 8:00 PM EST.</p>
+  <p><strong>Can we bring our own food or drinks?</strong><br>Absolutely! We provide a cooler with ice so your drinks stay cold. Bring your favorite snacks or beverages to enjoy.</p>
+  <p><strong>Is alcohol allowed on the beach?</strong><br>Yes, alcohol is allowed — just please clean up after yourself using the provided trash bag.</p>
+  <p><strong>What if the weather is bad?</strong><br>We’ll work hard to reschedule based on your availability. If that’s not possible, we offer compensation to keep things fair.</p>
+  <p><strong>Do you provide firewood for the entire evening?</strong><br>We provide enough firewood for the listed duration. Need more time? Just let us know — we can add extra wood for a small fee.</p>
+  <p><strong>Is the projector bright enough to use outdoors?</strong><br>Yes! It’s specifically chosen for nighttime visibility and gives an amazing outdoor movie experience.</p>
+  <p><strong>Do you set up at any beach?</strong><br>We currently serve Port St. Joe Beach and Cape San Blas exclusively.</p>
+  <p><strong>How far in advance should I book?</strong><br>We accept same-day bookings up to 4:00 PM EST — but earlier is always better to guarantee your spot!</p>
+  <p><strong>Can I bring extra guests or my own chairs?</strong><br>Of course! Just be sure not to mix our equipment with yours by accident.</p>
+  <p><strong>Will someone reach out to confirm my booking?</strong><br>Yes — we’ll send an email and follow up with you directly as soon as possible.</p>
+</section>
+
+
+</body>
+</html>
