@@ -91,6 +91,38 @@
       background-color: #f4511e;
     }
   </style>
+</head>
+<body>
+  <header>
+    <h1>Swiney's Beach Bonfires</h1>
+    <img class="logo" src="logo.jpg" alt="Swiney's Logo">
+  </header>
+
+  <section class="intro">
+    <p>
+      Swiney's Beach Bonfires is a family-owned business run by a local father-and-son duo. We love hosting beach bonfires and wanted to share this unforgettable experience with others. Our goal is to make your evening effortless and memorable — just show up and enjoy.
+    </p>
+    <p>
+      We handle everything for you, including a cozy bonfire setup and even a portable projector for a unique movie night under the stars.
+    </p>
+  </section>
+
+  <form id="booking-form">
+    <h2>Book Your Bonfire</h2>
+    <input type="text" name="name" placeholder="Your Name" required>
+    <input type="email" name="email" placeholder="Your Email" required>
+    <input type="tel" name="phone" placeholder="Phone Number (Optional)">
+    <label for="date" style="font-weight: 600; margin-top: 1rem; display: block;">Select Your Bonfire Date:</label>
+    <input type="date" name="date" id="date" required>
+    <select name="package" required>
+      <option value="">Select a Package</option>
+      <option value="standard">Standard</option>
+      <option value="premium">Premium</option>
+    </select>
+    <textarea name="message" rows="4" placeholder="Any special requests or questions? (Optional)"></textarea>
+    <button type="submit">Submit & Pay</button>
+  </form>
+
   <script>
     document.addEventListener("DOMContentLoaded", function() {
       const form = document.getElementById("booking-form");
@@ -106,48 +138,15 @@
 
       form.addEventListener("submit", function(e) {
         e.preventDefault();
-
         const selectedPackage = packageSelect.value;
         const paymentLink = packageLinks[selectedPackage];
-
         if (paymentLink) {
           window.location.href = paymentLink;
         } else {
-          alert("Please select a package before continuing.");
+          alert("Please select a package to proceed.");
         }
       });
     });
   </script>
-</head>
-<body>
-  <header>
-    <h1>Swiney's Beach Bonfires</h1>
-    <img class="logo" src="logo.jpg" alt="Swiney's Logo">
-  </header>
-
-  <section class="intro">
-    <p>Swiney's Beach Bonfires is a family-owned business run by a local father-and-son duo. We love hosting beach bonfires and wanted to share this unforgettable experience with others. Our goal is to make your evening effortless and memorable — just show up and enjoy.</p>
-    <p>We handle everything for you, including a cozy bonfire setup and even a portable projector for a unique movie night under the stars.</p>
-  </section>
-
-  <form id="booking-form">
-    <h2>Book Your Bonfire</h2>
-    <input type="text" name="name" placeholder="Your Name" required>
-    <input type="email" name="email" placeholder="Your Email" required>
-    <input type="tel" name="phone" placeholder="Phone Number (Optional)">
-    <label for="date" style="font-weight: bold; display: block; margin-top: 1rem;">Select Your Bonfire Date:</label>
-    <input type="date" name="date" id="date" required>
-    <select name="package" required>
-      <option value="">Select a Package</option>
-      <option value="standard">Standard – $200</option>
-      <option value="premium">Premium – $350</option>
-    </select>
-    <textarea name="message" rows="4" placeholder="Any special requests or questions? Contact us first if unsure."></textarea>
-    <button type="submit">Submit & Pay</button>
-  </form>
-
-  <div style="text-align: center; padding: 2rem; font-size: 0.9rem; color: #555;">
-    🔒 Secure checkout powered by <strong>Square</strong>. Your information is protected.
-  </div>
 </body>
 </html>
