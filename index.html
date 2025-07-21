@@ -114,54 +114,71 @@
     }
   </style>
   <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      const form = document.getElementById("booking-form");
-      const packageSelect = form.querySelector("select[name='package']");
+    <form id="book" action="https://formspree.io/f/xrbpaldl" method="POST" target="hiddenFrame">
+    <h2>Book a Session</h2>
+
+    <label>Name</label>
+    <input name="name" type="text" required />
+
+    <label>Email</label>
+    <input name="email" type="email" required />
+
+    <label>Package</label>
+    <select name="package" id="package" required>
+      <option value="">-- Choose a Package --</option>
+      <option value="standard">Standard - $200</option>
+      <option value="premium">Premium - $350</option>
+    </select>
+
+    <label>Preferred Date</label>
+    <input type="date" name="date" id="date" required />
+
+    <label>Message</label>
+    <textarea name="message" rows="4"></textarea>
+
+    <button type="submit">Submit & Pay</button>
+
+    <div id="redirect-message">Redirecting to secure checkout...</div>
+  </form>
+
+  <!-- Hidden iframe for formspree POST -->
+  <iframe name="hiddenFrame" style="display:none;"></iframe>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const form = document.getElementById("book");
+      const packageSelect = document.getElementById("package");
       const dateInput = document.getElementById("date");
+      const message = document.getElementById("redirect-message");
+
+      // Set minimum date
       const today = new Date().toISOString().split("T")[0];
       dateInput.setAttribute("min", today);
 
-const packageLinks = {
-  standard: "https://square.link/u/OGJpoU6x",
-  premium: "https://square.link/u/B05tzrLW"
-};
+      const packageLinks = {
+        standard: "https://square.link/u/OGJpoU6x",
+        premium: "https://square.link/u/B05tzrLW"
+      };
 
-form.addEventListener("submit", function(e) {
-  e.preventDefault();
-  const selectedPackage = packageSelect.value;
-  const paymentLink = packageLinks[selectedPackage];
+      form.addEventListener("submit", function (e) {
+        const selected = packageSelect.value;
+        const link = packageLinks[selected];
 
-  const formData = new FormData(form);
-  fetch("https://formspree.io/f/xrbpaldl", {
-    method: "POST",
-    body: formData,
-    headers: { Accept: "application/json" }
-  })
-  .then(response => {
-    if (response.ok && paymentLink) {
-      window.location.href = paymentLink;
-    } else {
-      alert("Form submitted but no payment link was set.");
-    }
-  })
-  .catch(() => {
-    alert("There was a problem submitting your form. Please try again.");
-  });
-});
+        if (!link) {
+          e.preventDefault();
+          alert("Please select a valid package.");
+          return;
+        }
 
-    const navLinks = document.querySelectorAll('nav a');
-  navLinks.forEach(link => {
-    link.addEventListener('click', function(e) {
-      const targetId = this.getAttribute('href').substring(1);
-      const target = document.getElementById(targetId);
-      if (target) {
-        e.preventDefault();
-        const yOffset = -100; // offset height for sticky nav
-        const y = target.getBoundingClientRect().top + window.pageYOffset + yOffset;
-        window.scrollTo({ top: y, behavior: 'smooth' });
-      }
+        // Show message
+        message.style.display = "block";
+
+        // Wait 1 second, then redirect
+        setTimeout(() => {
+          window.location.href = link;
+        }, 1000);
+      });
     });
-  });
 </script>
 </head>
 <body>
@@ -288,47 +305,7 @@ We use Square for secure, encrypted payments. Your information is safe with us.
 </section>
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-const form = document.getElementById("booking-form");
-const packageSelect = form.querySelector("select[name='package']");
 
-const packageLinks = {
-    standard: "https://square.link/u/OGJpoU6x", 
-    premium: "https://square.link/u/B05tzrLW"  
-  };
-
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
-
-    const selectedPackage = packageSelect.value;
-    const paymentLink = packageLinks[selectedPackage];
-
-    if (!paymentLink) {
-      alert("Please select a package to proceed.");
-      return;
-    }
-
-    const formData = new FormData(form);
-
-    fetch("https://formspree.io/f/xrbpaldl", {
-      method: "POST",
-      body: formData,
-      headers: { Accept: "application/json" }
-    })
-      .then(response => {
-        if (response.ok) {
-          console.log("✅ Form submitted. Redirecting to:", paymentLink);
-          window.location.href = paymentLink;
-        } else {
-          alert("Form submitted, but we couldn’t start checkout. Please try again.");
-        }
-      })
-      .catch(error => {
-        console.error("❌ Submission error:", error);
-        alert("There was a problem submitting your form. Please try again.");
-      });
-  });
-});
 </script>
 </body>
   <html>
